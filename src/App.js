@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { useEffect } from 'react';
+import { Sapling } from "@saplingai/sapling-js/observer";
+
 function App() {
+  useEffect(() => {
+    Sapling.init({
+      endpointHostname: 'http://127.0.0.1:5000',
+      saplingPathPrefix: '/sapling',
+    });
+
+    const editor = document.getElementById('editor');
+    Sapling.observe(editor);
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      id="editor"
+      sapling-ignore="true"
+      contentEditable="true"
+      style={{
+        margin: '40px auto',
+        padding: '10px',
+        border: '2px solid black',
+        width: '500px',
+        height: '200px'
+      }}>
+      Lets get started!
     </div>
   );
 }
